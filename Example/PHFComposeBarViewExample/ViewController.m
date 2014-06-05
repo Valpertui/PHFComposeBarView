@@ -52,7 +52,9 @@ CGRect const kInitialViewFrame = { 0.0f, 0.0f, 320.0f, 480.0f };
     [container addSubview:[self textView]];
     [container addSubview:[self composeBarView]];
     [view addSubview:container];
-    [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    }
 
     [self setView:view];
 }

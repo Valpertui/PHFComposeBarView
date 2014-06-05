@@ -28,6 +28,7 @@ CGFloat const kTextContainerCornerRadius  = 5.25f;
 CGFloat const kTextViewTopMargin          = -8.0f;
 CGFloat const kPlaceholderHeight          = 25.0f;
 CGFloat const kPlaceholderSideMargin      =  8.0f;
+CGFloat const kPlaceholderSideMarginIOS6  = 13.0f;
 CGFloat const kPlaceholderTopMargin       =  2.0f;
 CGFloat const kButtonHeight               = 26.0f;
 CGFloat const kButtonTouchableOverlap     =  6.0f;
@@ -362,7 +363,11 @@ static CGFloat kTextViewToSuperviewHeightDelta;
         [[self textView] setFrame:textViewFrame];
         [_textContainer addSubview:[self textView]];
 
-        CGRect placeholderFrame = CGRectMake(kPlaceholderSideMargin,
+        NSArray *version = [[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."];
+        NSInteger systemVersion = [version[0] integerValue];
+        CGFloat placeholderSideMargin = systemVersion < 7 ? kPlaceholderSideMarginIOS6 : kPlaceholderSideMargin;
+
+        CGRect placeholderFrame = CGRectMake(placeholderSideMargin,
                                              kPlaceholderTopMargin,
                                              textContainerFrame.size.width - 2 * kPlaceholderSideMargin,
                                              kPlaceholderHeight);
